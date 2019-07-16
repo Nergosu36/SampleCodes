@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ingredients
+{% endblock %}
+{% block body %}
+<div class="container">
+    {% if ingredients is defined %}
+    <table class="table table-striped">
+
+        <thead>
+        <tr class="row">
+            <th class="col-sm">Nazwa</th>
+            <th class="col-sm">Ilość</th>
+            <th class="col-sm">Typ</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+
+            {% for ingredient in ingredients %}
+            <tr class="row">
+                <td class="col-sm">{{ ingredient.name }}</td>
+                <td class="col-sm">{{ ingredient.cnt }}</td>
+                <td class="col-sm">{{ ingredient.type }}</td>
+            </tr>
+            {% endfor %}
+
+
+
+
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-warning mt-sm-3" role="alert">
+            Twoja lista składników jest pusta!
+        </div>
+    {% endif %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Dodaj nowe składniki
+    </button>
+    <a class="btn btn-primary" type="button" href="/">Wróć</a>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="row">
+                                <th class="col-sm">Nazwa</th>
+                                <th class="col-sm">Ilość</th>
+                                <th class="col-sm">Typ</th>
+                                <th class="col-sm">Akcja</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="row">
+                                <td class="col-sm">Jajka</td>
+                                <td class="col-sm">10</td>
+                                <td class="col-sm">Szt.</td>
+                                <td class="col-sm"><a class="btn btn-primary" type="button" href="/add/0">Dodaj do listy</a></td>
+                            </tr>
+                            <tr class="row">
+                                <td class="col-sm">Mąka</td>
+                                <td class="col-sm">500</td>
+                                <td class="col-sm">g</td>
+                                <td class="col-sm"><a class="btn btn-primary" type="button" href="/add/1">Dodaj do listy</a></td>
+                            </tr>
+                            <tr class="row">
+                                <td class="col-sm">Masło</td>
+                                <td class="col-sm">100</td>
+                                <td class="col-sm">g</td>
+                                <td class="col-sm"><a class="btn btn-primary" type="button" href="/add/2">Dodaj do listy</a></td>
+                            </tr>
+                            <tr class="row">
+                                <td class="col-sm">Cukier</td>
+                                <td class="col-sm">100</td>
+                                <td class="col-sm">g</td>
+                                <td class="col-sm"><a class="btn btn-primary" type="button" href="/add/3">Dodaj do listy</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

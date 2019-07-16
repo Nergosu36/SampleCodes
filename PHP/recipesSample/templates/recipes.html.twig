@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipes !{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if recipesU is defined %}
+        <table class="table table-striped">
+            <thead>
+                <tr class="row">
+                    <th class="col-sm">Nazwa</th>
+                    <th class="col-sm">Opis</th>
+                    <th class="col-sm">Uwagi</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for recipe in recipesU.recipes %}
+            <tr class="row">
+                <td class="col-sm">{{ recipe.title }}</td>
+                <td class="col-sm">{{ recipe.description }}</td>
+                {% for ingredient in ingredientsU.ingredients %}
+                    {% set test = true %}
+                    <td class="col-sm">
+                    {% if ingredient.name == "Jajka" and recipe.title == "Jajecznica" %}
+                    {% set test = false %}
+                        {% if test == true %}
+                        Brakuje składników
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="alert alert-danger mt-sm-3" role="alert">
+                Brak przepisów!
+            </div>
+        {% endif %}
+        <a class="btn btn-primary" type="button" href="/">Wróć</a>
+    </div>
+{% endblock body %}
