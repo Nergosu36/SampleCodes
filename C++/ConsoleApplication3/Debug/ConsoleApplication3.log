@@ -1,0 +1,4 @@
+﻿  ConsoleApplication3.cpp
+c:\users\nergosu\source\repos\consoleapplication3\consoleapplication3\consoleapplication3.cpp(22): warning C4244: "return": konwersja z "float" do "int", możliwa utrata danych
+c:\users\nergosu\source\repos\consoleapplication3\consoleapplication3\consoleapplication3.cpp(172): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  ConsoleApplication3.vcxproj -> C:\Users\Nergosu\source\repos\ConsoleApplication3\Debug\ConsoleApplication3.exe
