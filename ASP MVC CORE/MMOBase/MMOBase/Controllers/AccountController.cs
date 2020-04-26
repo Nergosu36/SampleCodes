@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMOBase.Domain.Models;
 using MMOBase.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace MMOBase.Controllers
 {
@@ -13,17 +14,17 @@ namespace MMOBase.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private MMOBaseContext db = new MMOBaseContext();
+        private readonly MMOBaseContext db = new MMOBaseContext();
 
         // GET: api/Account
         [HttpGet]
         public ActionResult<List<Account>> GetAccounts()
         {
-            return Ok(db.Accounts.ToList());
+            return Ok(db.Accounts.Include(p=>p.Champions).ToList());
         }
 
         // GET: api/Account/nergosu
-        [HttpGet("{login}", Name = "Get")]
+        [HttpGet("{login}")]
         public ActionResult<Account> Get(string login)
         {
             return Ok(db.Accounts.Find(login));

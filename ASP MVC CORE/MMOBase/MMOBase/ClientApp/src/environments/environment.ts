@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  accountsWithChampions: 'https://localhost:44366/api/Account',
   production: false
 };
 

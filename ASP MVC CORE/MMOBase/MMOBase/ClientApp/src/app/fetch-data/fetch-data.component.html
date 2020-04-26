@@ -1,24 +1,34 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Full list of Accounts with Champions</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>This component demonstrates fetching data from the local database server.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+<p *ngIf="!accountWithChampions"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
-  <thead>
+<table class="table">
+  <thead class="thead-dark">
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th scope="col">Login</th>
+      <th scope="col">Name</th>
+      <th scope="col">Creation Date</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
+    <ng-container *ngFor="let account of accountWithChampions">
+      <tr class="table-secondary">
+        <td scope="row">{{account.login}}</td>
+        <td>{{account.name}}</td>
+        <td>{{account.creationDate | date:'medium'}}</td>
+      </tr>
+      <tr class="thead-light">
+        <th scope="row">Champion ID</th>
+        <th>Name</th>
+        <th>Level</th>
+      </tr>
+      <tr *ngFor="let champion of account.champions">
+        <td>{{champion.championID}}</td>
+        <td scope="row">{{champion.name}}</td>
+        <td>{{champion.level}}</td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>

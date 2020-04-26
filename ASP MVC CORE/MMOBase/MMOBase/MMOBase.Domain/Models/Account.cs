@@ -14,6 +14,6 @@ namespace MMOBase.Domain.Models
 		public string Name { get; set; }
 		[Column(TypeName = "Datetime")]
 		public DateTime CreationDate { get; set; }
-		public List<Champion> Champions { get; set; }
+		public virtual ICollection<Champion> Champions { get; set; }
 	}
 }
