@@ -19,7 +19,7 @@
         <td>{{account.name}}</td>
         <td>{{account.creationDate | date:'medium'}}</td>
       </tr>
-      <tr class="thead-light">
+      <tr *ngIf="account.champions.length > 0" class="thead-light">
         <th scope="row">Champion ID</th>
         <th>Name</th>
         <th>Level</th>

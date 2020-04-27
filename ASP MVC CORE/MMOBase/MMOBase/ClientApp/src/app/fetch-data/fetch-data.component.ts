@@ -22,8 +22,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class FetchDataComponent {
 
   accountWithChampions: Account = {
-    login: '',
-    name: '',
+    Login: '',
+    Name: '',
     creationDate: null
   }
 
