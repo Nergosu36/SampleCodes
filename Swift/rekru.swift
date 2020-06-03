@@ -1,6 +1,8 @@
 import Foundation
 import Glibc
  
+//**************************** DNI TYGODNIA JAKO ENUMERABLE (ZAD. 2) ***************************************
+
  enum DaysOfAWeek 
  {
    case Pon
@@ -12,15 +14,21 @@ import Glibc
    case Nd
 }
 
+//**************************** PROTOKÓ£ WYMAGAJ¥CY WYST¥PENIA JEDNEGO JU¯ WCZEŒNIEJ ZADEKLAROWANEGO POLA (ZAD. 3) ***************************************
+
 protocol MyProtocol
 {
     init(IsCompleted_: Bool)
 }
 
+//**************************** PROTOKÓ£ DO DELEGACJI(KOMUNIKACJI) (ZAD. 4) ***************************************
+
 protocol CheckListCommunicator: class
 {
     func showList()
 }
+
+//**************************** KLASA CheckListElement (ZAD. 1) ***************************************
 
 class CheckListElement: CustomStringConvertible, MyProtocol
 {
@@ -48,6 +56,7 @@ class CheckListElement: CustomStringConvertible, MyProtocol
     {
         self.IsCompleted = IsCompleted_;
         self.Text = Text_;
+
         switch DayOfWeek_
         {
             case .Pon:
@@ -71,15 +80,17 @@ class CheckListElement: CustomStringConvertible, MyProtocol
     {
         var str = "\(self.DayOfWeek) \(self.Text) -> ";
         str += self.IsCompleted ? "Gotowe" : "Do Wykonania";
-      return str;
-   }
+        return str;
+    }
    
    func changeStatus(Status_: Bool)
    {
        self.IsCompleted = Status_;
-       delegate?.showList();
+       delegate?.showList(); // WYWO£ANIE FUNKCJI W DELEGACIE // CheckListElement -> delegate -> CheckList.showList()
    }
 }
+
+//**************************** KLASA CheckList ZAWIERAJ¥CA CheckListElements  (ZAD. 4) ***************************************
 
 class CheckList: CheckListCommunicator
 {
@@ -94,29 +105,58 @@ class CheckList: CheckListCommunicator
     {
         for i in CheckListElements
         {
-            print(i.description);
+            print(i); // ZAPEWNIONE PRZEZ CustomStringConvertible
+        }
+    }
+
+    func show3rd()
+    {
+        for i in stride(from: 2, to: CheckListElements.count, by: 3)
+        {
+            print(CheckListElements[i].description);
         }
     }
 }
 
+//**************************** PRZYK£ADOWE OBIEKTY (ZAD. 5) ***************************************
+
 let obj = CheckListElement(IsCompleted_: true);
-let testObj = CheckListElement(Text_: "Zrobiæ pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
-let testObj2 = CheckListElement();
+let testObj = CheckListElement();
+let testObj2 = CheckListElement(Text_: "Zrobiæ pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Pon);
 
-let array = CheckList(CheckListElements_: [obj, testObj, testObj2]);
+let objX = CheckListElement(IsCompleted_: true);
+let testObjX = CheckListElement();
+let testObj2X = CheckListElement(Text_: "Zrobiæ pranie X", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
 
-obj.delegate = array;
-testObj.delegate = array;
-testObj2.delegate = array;
+let objY = CheckListElement(IsCompleted_: true);
+let testObjY = CheckListElement();
+let testObj2Y = CheckListElement(Text_: "Zrobiæ pranie Y", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Sr);
 
-//array.showList();
+let objZ = CheckListElement(IsCompleted_: true);
+let testObjZ = CheckListElement();
+let testObj2Z = CheckListElement(Text_: "Zrobiæ pranie Z", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Czw);
 
-testObj.changeStatus(Status_: true);
+//**************************** MACIERZ Z OBIEKTAMI (ZAD. 5) ***************************************
 
-print("");
+let CheckListElements = [obj, testObj, testObj2, objX, testObjX, testObj2X, objY, testObjY, testObj2Y, objZ, testObjZ, testObj2Z];
 
-obj.changeStatus(Status_: false);
+//**************************** CHECK LIST (ZAD. 5) ***************************************
 
-/*print(obj.description);
-print(testObj.description);
-print(testObj2.description);*/
+let array = CheckList(CheckListElements_: CheckListElements);
+
+//**************************** PRZYPISANIE DELEGATÓW (ZAD. 5) ***************************************
+
+for i in CheckListElements
+{
+    i.delegate = array;
+}
+
+//**************************** ZMIANA STATUSU (ZAD. 5) ***************************************
+
+testObj2Y.changeStatus(Status_: true);
+
+print(""); //moja wstawka dla lepszej czytelnoœci
+
+//**************************** WYWO£ANIE FUNKCJI WYŒWIETLANIA CO TRZECIEJ POZYCJI W MACIERZY (ZAD. 5) ***************************************
+
+array.show3rd();
