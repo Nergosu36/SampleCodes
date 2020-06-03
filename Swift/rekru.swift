@@ -17,23 +17,33 @@ protocol MyProtocol
     init(IsCompleted_: Bool)
 }
 
+protocol CheckListCommunicator: class
+{
+    func showList()
+}
+
 class CheckListElement: CustomStringConvertible, MyProtocol
 {
     var Text: String;
     var IsCompleted: Bool;
     var DayOfWeek: String;
+    
+    var delegate: CheckListCommunicator?;
+    
     init()
     {
         self.Text = "Przyk³adowa czynnoœæ";
         self.IsCompleted = false;
         self.DayOfWeek = "Poniedzia³ek";
     }
+    
     required init(IsCompleted_: Bool)
     {
         self.IsCompleted = IsCompleted_;
         self.Text = "Przyk³adowa czynnoœæ";
         self.DayOfWeek = "Poniedzia³ek";
     }
+    
     init(Text_: String, IsCompleted_: Bool, DayOfWeek_: DaysOfAWeek)
     {
         self.IsCompleted = IsCompleted_;
@@ -56,24 +66,57 @@ class CheckListElement: CustomStringConvertible, MyProtocol
                 self.DayOfWeek = "Niedziela";
         }
     }
+    
     var description: String 
     {
         var str = "\(self.DayOfWeek) \(self.Text) -> ";
         str += self.IsCompleted ? "Gotowe" : "Do Wykonania";
       return str;
    }
+   
    func changeStatus(Status_: Bool)
    {
        self.IsCompleted = Status_;
+       delegate?.showList();
    }
+}
+
+class CheckList: CheckListCommunicator
+{
+    var CheckListElements = [CheckListElement]();
+    
+    init(CheckListElements_: [CheckListElement])
+    {
+        self.CheckListElements=CheckListElements_;
+    }
+    
+    func showList()
+    {
+        for i in CheckListElements
+        {
+            print(i.description);
+        }
+    }
 }
 
 let obj = CheckListElement(IsCompleted_: true);
 let testObj = CheckListElement(Text_: "Zrobiæ pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
 let testObj2 = CheckListElement();
 
+let array = CheckList(CheckListElements_: [obj, testObj, testObj2]);
+
+obj.delegate = array;
+testObj.delegate = array;
+testObj2.delegate = array;
+
+//array.showList();
+
 testObj.changeStatus(Status_: true);
 
-print(obj.description);
+print("");
+
+obj.changeStatus(Status_: false);
+
+/*print(obj.description);
 print(testObj.description);
-print(testObj2.description);
+print(testObj2.description);*/
