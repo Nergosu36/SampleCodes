@@ -12,7 +12,12 @@ import Glibc
    case Nd
 }
 
-class CheckListElement: CustomStringConvertible
+protocol MyProtocol
+{
+    init(IsCompleted_: Bool)
+}
+
+class CheckListElement: CustomStringConvertible, MyProtocol
 {
     var Text: String;
     var IsCompleted: Bool;
@@ -21,6 +26,12 @@ class CheckListElement: CustomStringConvertible
     {
         self.Text = "Przyk³adowa czynnoœæ";
         self.IsCompleted = false;
+        self.DayOfWeek = "Poniedzia³ek";
+    }
+    required init(IsCompleted_: Bool)
+    {
+        self.IsCompleted = IsCompleted_;
+        self.Text = "Przyk³adowa czynnoœæ";
         self.DayOfWeek = "Poniedzia³ek";
     }
     init(Text_: String, IsCompleted_: Bool, DayOfWeek_: DaysOfAWeek)
@@ -51,10 +62,18 @@ class CheckListElement: CustomStringConvertible
         str += self.IsCompleted ? "Gotowe" : "Do Wykonania";
       return str;
    }
+   func changeStatus(Status_: Bool)
+   {
+       self.IsCompleted = Status_;
+   }
 }
 
+let obj = CheckListElement(IsCompleted_: true);
 let testObj = CheckListElement(Text_: "Zrobiæ pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
 let testObj2 = CheckListElement();
 
+testObj.changeStatus(Status_: true);
+
+print(obj.description);
 print(testObj.description);
 print(testObj2.description);
