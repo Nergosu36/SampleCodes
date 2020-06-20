@@ -14,14 +14,14 @@ import Glibc
    case Nd
 }
 
-//**************************** PROTOK”£ WYMAGAJ•CY WYST•PIENIA JEDNEGO JUØ WCZEåNIEJ ZADEKLAROWANEGO POLA (ZAD. 3) ***************************************
+//**************************** PROTOK√ì≈Å WYMAGAJƒÑCY WYSTƒÑPIENIA JEDNEGO JU≈ª WCZE≈öNIEJ ZADEKLAROWANEGO POLA (ZAD. 3) ***************************************
 
 protocol MyProtocol
 {
     init(IsCompleted_: Bool)
 }
 
-//**************************** PROTOK”£ DO DELEGACJI(KOMUNIKACJI) (ZAD. 4) ***************************************
+//**************************** PROTOK√ì≈Å DO DELEGACJI(KOMUNIKACJI) (ZAD. 4) ***************************************
 
 protocol CheckListCommunicator: class
 {
@@ -40,16 +40,16 @@ class CheckListElement: CustomStringConvertible, MyProtocol
     
     init()
     {
-        self.Text = "Przyk≥adowa czynnoúÊ";
+        self.Text = "Przyk≈Çadowa czynno≈õƒá";
         self.IsCompleted = false;
-        self.DayOfWeek = "Poniedzia≥ek";
+        self.DayOfWeek = "Poniedzia≈Çek";
     }
     
     required init(IsCompleted_: Bool)
     {
         self.IsCompleted = IsCompleted_;
-        self.Text = "Przyk≥adowa czynnoúÊ";
-        self.DayOfWeek = "Poniedzia≥ek";
+        self.Text = "Przyk≈Çadowa czynno≈õƒá";
+        self.DayOfWeek = "Poniedzia≈Çek";
     }
     
     init(Text_: String, IsCompleted_: Bool, DayOfWeek_: DaysOfAWeek)
@@ -60,15 +60,15 @@ class CheckListElement: CustomStringConvertible, MyProtocol
         switch DayOfWeek_
         {
             case .Pon:
-                self.DayOfWeek = "Poniedzia≥ek";
+                self.DayOfWeek = "Poniedzia≈Çek";
             case .Wt:
                 self.DayOfWeek = "Wtorek";
             case .Sr:
-                self.DayOfWeek = "åroda";
+                self.DayOfWeek = "≈öroda";
             case .Czw:
                 self.DayOfWeek = "Czwartek";
             case .Pt:
-                self.DayOfWeek = "Piπtek";
+                self.DayOfWeek = "PiƒÖtek";
             case .Sob:
                 self.DayOfWeek = "Sobota";
             case .Nd:
@@ -86,11 +86,11 @@ class CheckListElement: CustomStringConvertible, MyProtocol
    func changeStatus(Status_: Bool)
    {
        self.IsCompleted = Status_;
-       delegate?.showList(); // WYWO£ANIE FUNKCJI W DELEGACIE // CheckListElement -> delegate -> CheckList.showList()
+       delegate?.showList(); // WYWO≈ÅANIE FUNKCJI W DELEGACIE // CheckListElement -> delegate -> CheckList.showList()
    }
 }
 
-//**************************** KLASA CheckList ZAWIERAJ•CA CheckListElements  (ZAD. 4) ***************************************
+//**************************** KLASA CheckList ZAWIERAJƒÑCA CheckListElements  (ZAD. 4) ***************************************
 
 class CheckList: CheckListCommunicator
 {
@@ -118,23 +118,23 @@ class CheckList: CheckListCommunicator
     }
 }
 
-//**************************** PRZYK£ADOWE OBIEKTY (ZAD. 5) ***************************************
+//**************************** PRZYK≈ÅADOWE OBIEKTY (ZAD. 5) ***************************************
 
 let obj = CheckListElement(IsCompleted_: true);
 let testObj = CheckListElement();
-let testObj2 = CheckListElement(Text_: "ZrobiÊ pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Pon);
+let testObj2 = CheckListElement(Text_: "Zrobiƒá pranie", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Pon);
 
 let objX = CheckListElement(IsCompleted_: true);
 let testObjX = CheckListElement();
-let testObj2X = CheckListElement(Text_: "ZrobiÊ pranie X", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
+let testObj2X = CheckListElement(Text_: "Zrobiƒá pranie X", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Wt);
 
 let objY = CheckListElement(IsCompleted_: true);
 let testObjY = CheckListElement();
-let testObj2Y = CheckListElement(Text_: "ZrobiÊ pranie Y", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Sr);
+let testObj2Y = CheckListElement(Text_: "Zrobiƒá pranie Y", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Sr);
 
 let objZ = CheckListElement(IsCompleted_: true);
 let testObjZ = CheckListElement();
-let testObj2Z = CheckListElement(Text_: "ZrobiÊ pranie Z", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Czw);
+let testObj2Z = CheckListElement(Text_: "Zrobiƒá pranie Z", IsCompleted_: false, DayOfWeek_: DaysOfAWeek.Czw);
 
 //**************************** MACIERZ Z OBIEKTAMI (ZAD. 5) ***************************************
 
@@ -144,7 +144,7 @@ let CheckListElements = [obj, testObj, testObj2, objX, testObjX, testObj2X, objY
 
 let array = CheckList(CheckListElements_: CheckListElements);
 
-//**************************** PRZYPISANIE DELEGAT”W (ZAD. 5) ***************************************
+//**************************** PRZYPISANIE DELEGAT√ìW (ZAD. 5) ***************************************
 
 for i in CheckListElements
 {
@@ -155,8 +155,8 @@ for i in CheckListElements
 
 testObj2Y.changeStatus(Status_: true);
 
-print(""); //moja wstawka dla lepszej czytelnoúci
+print(""); //moja wstawka dla lepszej czytelno≈õci
 
-//**************************** WYWO£ANIE FUNKCJI WYåWIETLANIA CO TRZECIEJ POZYCJI W MACIERZY (ZAD. 5) ***************************************
+//**************************** WYWO≈ÅANIE FUNKCJI WY≈öWIETLANIA CO TRZECIEJ POZYCJI W MACIERZY (ZAD. 5) ***************************************
 
 array.show3rd();
