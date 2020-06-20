@@ -32,10 +32,14 @@
     <None Remove="ClientApp\src\app\fetch-data\fetch-data.service.ts" />
     <None Remove="ClientApp\src\app\models\Account.ts" />
     <None Remove="ClientApp\src\app\models\Champion.ts" />
+    <None Remove="ClientApp\src\app\models\Game.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\fetch-data\fetch-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Game.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\models\Account.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\Champion.ts" />
   </ItemGroup>

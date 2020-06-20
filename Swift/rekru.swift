@@ -14,7 +14,7 @@ import Glibc
    case Nd
 }
 
-//**************************** PROTOKÓ£ WYMAGAJ¥CY WYST¥PENIA JEDNEGO JU¯ WCZEŒNIEJ ZADEKLAROWANEGO POLA (ZAD. 3) ***************************************
+//**************************** PROTOKÓ£ WYMAGAJ¥CY WYST¥PIENIA JEDNEGO JU¯ WCZEŒNIEJ ZADEKLAROWANEGO POLA (ZAD. 3) ***************************************
 
 protocol MyProtocol
 {
