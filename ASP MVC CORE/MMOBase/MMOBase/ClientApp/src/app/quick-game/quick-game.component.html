@@ -113,7 +113,7 @@
         <div class="card-body">
           <h5 class="card-title">Launch a torpedo</h5>
           <p class="card-text">Fire a missile that hits <span class="badge badge-danger badge-pill">Ships</span> in <span class="badge badge-pill badge-light">Front</span> of you.</p>
-          <button type="button" class="btn btn-primary btn-block" (click)="fireTorpedo()" *ngIf="resources.Torpedos>0; else elseTorpedos">
+          <button type="button" class="btn btn-primary btn-block" (click)="fireTorpedo()" *ngIf="resources.Torpedos>0 && !torpedoFired; else elseTorpedos">
             Fire torpedo <span class="badge badge-light">{{resources.Torpedos}}</span>
           </button>
           <ng-template #elseTorpedos>
@@ -130,7 +130,7 @@
         <div class="card-body">
           <h5 class="card-title">Release a mine</h5>
           <p class="card-text">Plant a bomb that will stop <span class="badge badge-danger badge-pill">Ships</span> <span class="badge badge-pill badge-light">Behind</span> you.</p>
-          <button type="button" class="btn btn-primary btn-block" (click)="placeMine()" *ngIf="resources.Mines>0; else elseMines">
+          <button type="button" class="btn btn-primary btn-block" (click)="placeMine()" *ngIf="resources.Mines>0 && !minePlaced; else elseMines">
             Place mine <span class="badge badge-light">{{resources.Mines}}</span>
           </button>
           <ng-template #elseMines>

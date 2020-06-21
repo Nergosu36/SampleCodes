@@ -152,7 +152,10 @@ export class QuickGameComponent implements OnInit
 
   gameUpdate()
   {
-    this.resources.Progress += 0.5;
+    if (!this.dived)
+      this.resources.Progress += 0.5;
+    else
+      this.resources.Progress += 1.0;
 
     if (this.torpedoFired)
     {
@@ -190,6 +193,7 @@ export class QuickGameComponent implements OnInit
     this.enemyBehind = false;
     this.torpedoFired = false;
     this.minePlaced = false;
+    this.resources.Air = 100;
     this.killIntervals();
   }
 
