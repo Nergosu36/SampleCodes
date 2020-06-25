@@ -1,49 +1,81 @@
-const Logger = require('./logger.js');
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
+// const Logger = require('./logger.js');
+// const path = require('path');
+// const os = require('os');
+// const fs = require('fs');
 const EventEmitter = require('events');
 const http = require('http');
+const Notificator = require('./notificator.js');
+const bodyParser = require('body-parser');
+const express = require('express');
+var app = express();
 
-var totaleMemory = os.totalmem();
-var freeMemory = os.freemem();
+const notificator = new Notificator();
 
-console.log('Free mem: ' + os.freemem()/1024/1024 + " MB", );//os.totalmem());
+// var totaleMemory = os.totalmem();
+// var freeMemory = os.freemem();
 
-console.log(`Total Memory: ${totaleMemory}`);
-console.log(`Free Memory: ${freeMemory}`);
+// console.log('Free mem: ' + os.freemem()/1024/1024 + " MB", );//os.totalmem());
 
-// const files = fs.readdirSync('./');
-// console.log(files);
+// console.log(`Total Memory: ${totaleMemory}`);
+// console.log(`Free Memory: ${freeMemory}`);
 
-var pathToFile = "./";
+// // const files = fs.readdirSync('./');
+// // console.log(files);
 
-fs.readdir(pathToFile, function(err, files)
-{
-    if(err) 
-        console.log('Error: ', err);
-    else
-        console.log('Result: ', files);
-});
+// var pathToFile = "./";
 
-const logger = new Logger();
+// fs.readdir(pathToFile, function(err, files)
+// {
+//     if(err) 
+//         console.log('Error: ', err);
+//     else
+//         console.log('Result: ', files);
+// });
 
-logger.on('messageLogged', (arg) => {
-    console.log('Listener called with id: ' + arg.id + `\n\rMessage: ${arg.message}`);
-});
+// const logger = new Logger();
 
-logger.log('message');
+// logger.on('messageLogged', (arg) => {
+//     console.log('Listener called with id: ' + arg.id + `\n\rMessage: ${arg.message}`);
+// });
 
-const server = http.createServer((req,res) => {
-    if(req.url === '/api/courses'){
-        res.write(JSON.stringify([1, 2, 3]));
-        res.end();
-    }
-});
+// logger.log('message');
 
-server.on('connection', (socket) => {
-    console.log('New connection...');
-});
-server.listen(3000);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-console.log('Listening on port 3000...');
+app.get('/api/notes/all', (req, res) =>{
+    res.writeHeader(200, {"Content-Type": "text/html"})
+    res.write(notificator.releaseNotes());
+    res.end();
+})
+app.get('/api/notes', (req, res) =>{
+    res.write(notificator.getNotes());
+    res.end();
+})
+app.get('/api/notes/single', (req, res) =>{
+    res.write(notificator.releaseNote());
+    res.end();
+})
+app.post('/api/notes', (req, res) =>{
+    notificator.addNote(req.body.message);
+    res.write('Added new notification\n');
+    res.end();
+})
+app.put('/api/notes', (req,res) =>{
+    res.write('Updated a notification with ID: \n');
+    res.end();
+})
+app.delete('/api/notes', (req, res) =>{
+    res.write('Deleted a notification with ID: \n');
+    res.end();
+})
+
+app.listen(3000);
+
+// server.on('connection', (socket) => {
+//     console.log('New connection...');
+// });
+// server.listen(3000);
+
+// console.log('Listening on port 3000...');
+
