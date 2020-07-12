@@ -5,8 +5,10 @@
 const EventEmitter = require('events');
 const http = require('http');
 const Notificator = require('./notificator.js');
+const Figure = require('./figure.js'); 
 const bodyParser = require('body-parser');
 const express = require('express');
+const Account = require('./account.js');
 var app = express();
 
 const notificator = new Notificator();
@@ -40,6 +42,7 @@ const notificator = new Notificator();
 
 // logger.log('message');
 
+// ************************* API EXAMPLES *******************************************
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -71,11 +74,71 @@ app.delete('/api/notes', (req, res) =>{
 })
 
 app.listen(3000);
+// *********************************************************************
 
-// server.on('connection', (socket) => {
-//     console.log('New connection...');
-// });
-// server.listen(3000);
+// ************************* RUNTIME EXAMPLES *******************************************
+egNotes=["Note 1", "Note second", "NooN", "Nan", "Note idk number"];
+notificator.addNotes(egNotes);
 
-// console.log('Listening on port 3000...');
+let n=6;
+let text = "Simple";
 
+console.log(`Silnia z ${n} = `+fn(n));
+console.log(`Fibonacci dla ${n} liczby z kolei = `+fibonacci(n));
+console.log(`Strlen ze stringa "${text}" = ` + strlen(text));
+
+var figure = new Figure.Rectangle();
+var tri = new Figure.Triangle();
+
+figure.draw();
+tri.draw();
+
+var account = new Account(5000, 100, 'John\'s Account');
+var accountInfo = account.getInfo()
+console.log(accountInfo);
+
+console.log(palindromCheck("asLsA"));
+
+//console.log(Figure.COUNT);
+// *********************************************************************
+
+// ************************** FUNKCJE ******************************
+function fn(n)
+{
+    return n<2 ? n : fn(n-1)*n;
+}
+function fibonacci(n)
+{
+    return n<2 ? n : fibonacci(n-1)+fibonacci(n-2);
+}
+function strlen(text)
+{
+    let i=0;
+    text=text.split("");
+    text.push('\0');
+    while(text[i] !== '\0')
+    {
+        i++;
+    }
+    return i;
+}
+function palindromCheck(text)
+{
+    let rng = Math.round(Math.random());
+    switch(rng)
+    {
+        case 0:{
+            return (text.toLowerCase().split("").reverse().join("")===text.toLowerCase()) + " method 1";
+        }
+        case 1:{
+            text=text.toLowerCase();
+            for(let i=0; i<text.length; i++)
+            {
+                if(text[i]!==text[text.length-1-i])
+                    return false + " method 2";
+            }
+            return true + " method 2";
+        }
+    }
+}
+// *********************************************************************

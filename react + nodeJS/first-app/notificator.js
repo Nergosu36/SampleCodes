@@ -10,6 +10,11 @@ class Notificator extends EventEmitter
     {
         this.notes.push(text);
     }
+    addNotes(texts)
+    {
+        for(let i=0; i<texts.length; i++)
+            this.notes.push(texts[i]);
+    }
     releaseNote()
     {
         return this.notes.pop();
@@ -17,7 +22,7 @@ class Notificator extends EventEmitter
     releaseNoteTimer()
     {
         if(this.notes.length>0)
-            this.htmlContent += `<p style='font-weight:bold'>${this.releaseNote()}</p>`;
+            this.htmlContent += `<h3>${this.releaseNote()}</h3>`;
         else
             clearInterval(this.notesInterval);
     }
