@@ -59,15 +59,27 @@ app.get('/api/notes/single', (req, res) =>{
 })
 app.post('/api/notes', (req, res) =>{
     notificator.addNote(req.body.message);
-    res.write('Added new notification\n');
+    res.write('Added new notification');
     res.end();
 })
-app.put('/api/notes', (req,res) =>{
-    res.write('Updated a notification with ID: \n');
+app.put('/api/notes/:id', (req,res) =>{
+    try{
+        notificator.editNote(req.params.id,req.body.message);
+        res.write(`Updated a notification with index: ${req.params.id}`);
+    }
+    catch(error){
+        console.error(error);
+    }
     res.end();
 })
-app.delete('/api/notes', (req, res) =>{
-    res.write('Deleted a notification with ID: \n');
+app.delete('/api/notes/:id', (req, res) =>{
+    try{
+        notificator.deleteNote(req.params.id);
+        res.write(`Deleted a notification with index: ${req.params.id}`);
+    }
+    catch(error){
+        console.error(error);
+    }
     res.end();
 })
 

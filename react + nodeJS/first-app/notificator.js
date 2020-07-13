@@ -15,6 +15,14 @@ class Notificator extends EventEmitter
         for(let i=0; i<texts.length; i++)
             this.notes.push(texts[i]);
     }
+    editNote(index,text)
+    {
+        this.notes[index]=text;
+    }
+    deleteNote(index)
+    {
+        this.notes.splice(index,1);
+    }
     releaseNote()
     {
         return this.notes.pop();
