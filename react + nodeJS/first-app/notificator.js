@@ -37,4 +37,7 @@ class Notificator extends EventEmitter
     }
 }
 
-module.exports = Notificator;
+const instance = new Notificator();
+Object.freeze(instance);
+
+module.exports = instance;

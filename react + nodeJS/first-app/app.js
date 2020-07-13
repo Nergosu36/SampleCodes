@@ -4,14 +4,12 @@
 // const fs = require('fs');
 const EventEmitter = require('events');
 const http = require('http');
-const Notificator = require('./notificator.js');
+const notificator = require('./notificator.js');
 const Figure = require('./figure.js'); 
 const bodyParser = require('body-parser');
 const express = require('express');
 const Account = require('./account.js');
 var app = express();
-
-const notificator = new Notificator();
 
 // var totaleMemory = os.totalmem();
 // var freeMemory = os.freemem();
